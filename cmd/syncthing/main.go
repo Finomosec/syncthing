@@ -1080,6 +1080,7 @@ func (m migratingAPI) Serve(ctx context.Context) error {
 		Addr: m.addr,
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+			w.Header().Set("Refresh", "5")
 			w.Write([]byte("*** Database migration in progress ***\n\n"))
 			for _, line := range slogutil.GlobalRecorder.Since(time.Time{}) {
 				_, _ = line.WriteTo(w, slogutil.DefaultLineFormat)
